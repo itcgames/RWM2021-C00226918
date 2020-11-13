@@ -202,28 +202,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &519420028 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5555847409839700512, guid: 342c5c13d3c449d43b115c2ed5fc937c,
-    type: 3}
-  m_PrefabInstance: {fileID: 5555847409528029788}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &519420030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 633e62d894d9e2040a41b2ffe32858d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MAX_SPEED: 10
-  initialSpeed: 10
-  target: {x: 14, y: -10, z: 0}
-  m_state: 1
 --- !u!1 &676336711
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,27 +283,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &5555847409528029788
+--- !u!1001 &1795684597
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 519420030, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
+      propertyPath: m_initialSpeed
+      value: 1.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 519420030, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
+      propertyPath: m_targetPosition.x
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 519420030, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
+      propertyPath: m_targetPosition.y
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 519420030, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
+      propertyPath: m_state
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5555847409839700512, guid: 342c5c13d3c449d43b115c2ed5fc937c,
         type: 3}
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
-    - target: {fileID: 5555847409839700515, guid: 342c5c13d3c449d43b115c2ed5fc937c,
-        type: 3}
-      propertyPath: orthographic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5555847409839700700, guid: 342c5c13d3c449d43b115c2ed5fc937c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5555847409839700700, guid: 342c5c13d3c449d43b115c2ed5fc937c,
         type: 3}

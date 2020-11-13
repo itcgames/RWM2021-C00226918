@@ -45,11 +45,5 @@ namespace Globals
 				return t_currentOrientation;
 			}
 		}
-
-		//public static Vector3 Absolute(Vector3 t_vector)
-		//{
-		//	Vector3 vector;
-		//	vector.x = Mathf.Abs(t_vector.x)
-		//}
 	}
 }
