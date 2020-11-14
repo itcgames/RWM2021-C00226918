@@ -11,10 +11,10 @@ public class ProgressiveMovement : MonoBehaviour
 
     [Range(0, MAX_SPEED_RANGE)]
     [SerializeField]
-    private float MAX_SPEED;
+    private float m_maxSpeed = MAX_SPEED_RANGE;
     [Range(0, MAX_SPEED_RANGE)]
     [SerializeField]
-    private float m_initialSpeed;
+    private float m_initialSpeed = MAX_SPEED_RANGE / 2.0f;
     [SerializeField]
     private float m_maxSlowRadius = 2.5f;
     [SerializeField]
@@ -80,9 +80,9 @@ public class ProgressiveMovement : MonoBehaviour
     /// </summary>
     private void CapSpeed()
 	{
-        if(m_currentSpeed > MAX_SPEED)
+        if(m_currentSpeed > m_maxSpeed)
 		{
-            m_currentSpeed = MAX_SPEED;
+            m_currentSpeed = m_maxSpeed;
 		}
 	}
 
@@ -110,10 +110,10 @@ public class ProgressiveMovement : MonoBehaviour
         m_velocity.z = 0;
 
         //if the velocity is greater than the max speed, normalise and cap at max speed.
-        if(Globals.Globals.Magnitude(m_velocity) > MAX_SPEED)
+        if(Globals.Globals.Magnitude(m_velocity) > m_maxSpeed)
 		{
             m_velocity = Globals.Globals.Normalise(m_velocity);
-            m_velocity = m_velocity * MAX_SPEED;
+            m_velocity = m_velocity * m_maxSpeed;
 		}
     }
 
@@ -158,6 +158,7 @@ public class ProgressiveMovement : MonoBehaviour
     public void SetCurrentSpeed(float t_speed) { m_currentSpeed = t_speed; }
     public void SetCameraState(CameraMovementState t_state) { m_state = t_state; }
     public void SetArrived(bool t_arrive) { m_arrived = t_arrive; }
+    public void SetMaxSpeed(float t_speed) { m_maxSpeed = t_speed; }
 
     /// <summary>
     /// Getters
@@ -166,4 +167,5 @@ public class ProgressiveMovement : MonoBehaviour
     public Vector3 GetTargetPosition() { return m_targetPosition; }
     public Vector3 GetCameraPosition() { return m_position; }
     public float GetCurrentSpeed() { return m_currentSpeed; }
+    public float GetMaxSpeed() { return m_maxSpeed; }
 }

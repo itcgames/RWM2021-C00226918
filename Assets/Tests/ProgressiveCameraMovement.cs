@@ -52,4 +52,19 @@ public class ProgressiveCameraMovement
         float currentSpeed = progressiveMovement.GetCurrentSpeed();
         Assert.Less(currentSpeed, initialSpeed);
     }
-}
+
+    [UnityTest]
+    public IEnumerator CheckSpeedCap()
+    {
+        progressiveMovement.SetCameraState(0);
+        progressiveMovement.SetCurrentSpeed(3.0f);
+        progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
+        progressiveMovement.SetArrived(false);
+        progressiveMovement.SetMaxSpeed(1.0f);
+        float MAX_SPEED = progressiveMovement.GetMaxSpeed();
+        float initialSpeed = progressiveMovement.GetCurrentSpeed();
+        yield return new WaitForSeconds(0.01f);
+        float currentSpeed = progressiveMovement.GetCurrentSpeed();
+        Assert.AreEqual(MAX_SPEED, currentSpeed);
+    }
+ }
