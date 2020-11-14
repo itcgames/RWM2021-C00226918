@@ -5,15 +5,18 @@ using Globals;
 
 public class ProgressiveMovement : MonoBehaviour
 {
-    const float MAX_SPEED_RANGE = 10.0f;
+    const float MAX_SPEED_RANGE = 0.01f;
     const float MAX_ACCELERATION = 0.5f;
+    const float MAX_ARRIVE_RADIUS = 0.1f;
 
-    [Range(1, MAX_SPEED_RANGE)]
+    [Range(1, MAX_SPEED_RANGE * 1000.0f)]
     [SerializeField]
     private int MAX_SPEED;
-    [Range(0, MAX_SPEED_RANGE)]
+    [Range(0, MAX_SPEED_RANGE * 1000.0f)]
     [SerializeField]
     private float m_initialSpeed;
+    [SerializeField]
+    private float MAX_SLOW_RADIUS = 2.5f;
     [SerializeField]
     private Vector3 m_targetPosition;
 
@@ -30,7 +33,7 @@ public class ProgressiveMovement : MonoBehaviour
     private Vector3 m_linearSteering;
     private float m_currentSpeed;
     private float m_orientation;
-    private bool m_arrived = false;
+    private bool m_arrived;
 
     void Start()
     {
@@ -45,16 +48,22 @@ public class ProgressiveMovement : MonoBehaviour
         Movement();
 	}
 
-    /// <summary>
-    /// Simple chack that stops wmoving the camera when its within range of traget location
-    /// </summary>
-    private void CheckPosition()
+    private void ArriveAtLocation()
 	{
-        if(Globals.Globals.Magnitude(m_position - m_targetPosition) < 0.1f)
-		{
+        float l_distance = Globals.Globals.Magnitude(m_targetPosition - m_position);
+
+        //calculate the speed based on the position relative to the target
+        if (l_distance < MAX_ARRIVE_RADIUS)
+        {
             m_arrived = true;
-		}
-	}
+            m_currentSpeed = 0.0f;
+        }
+        //slow down when within slow down radius
+        else if(l_distance >= MAX_ARRIVE_RADIUS && l_distance < MAX_SLOW_RADIUS)
+        {
+            m_currentSpeed = MAX_SPEED_RANGE * (l_distance / (float)(MAX_SLOW_RADIUS));
+        }
+    }
 
     /// <summary>
     /// Gets the linear steering vector to the target loaction
@@ -109,7 +118,7 @@ public class ProgressiveMovement : MonoBehaviour
 
             transform.position = m_position;
         }
-        CheckPosition();
+        ArriveAtLocation();
     }
 
     /// <summary>
