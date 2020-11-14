@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Globals;
 
+///@author Francis Carroll
+///@date 09/11/20
+
 public class ProgressiveMovement : MonoBehaviour
 {
     const float MAX_SPEED_RANGE = 0.08f;
