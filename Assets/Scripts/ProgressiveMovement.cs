@@ -19,6 +19,8 @@ public class ProgressiveMovement : MonoBehaviour
     private float m_maxSlowRadius = 2.5f;
     [SerializeField]
     private Vector3 m_targetPosition;
+    [SerializeField]
+    private bool m_slowOnArrive = true;
 
     public enum CameraMovementState
     {
@@ -47,6 +49,14 @@ public class ProgressiveMovement : MonoBehaviour
 	{
         Movement();
 	}
+
+    private void CheckPosition()
+	{
+        if (Globals.Globals.Magnitude(m_position - m_targetPosition) < MAX_ARRIVE_RADIUS)
+        {
+            m_arrived = true;
+        }
+    }
 
     private void ArriveAtLocation()
 	{
@@ -118,7 +128,15 @@ public class ProgressiveMovement : MonoBehaviour
 
             transform.position = m_position;
         }
-        ArriveAtLocation();
+		if (m_slowOnArrive)
+		{
+            ArriveAtLocation();
+		}
+		else
+		{
+            CheckPosition();
+		}
+        
     }
 
     /// <summary>
