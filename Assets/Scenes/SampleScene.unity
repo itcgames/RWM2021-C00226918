@@ -292,7 +292,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 519420030, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
       propertyPath: m_initialSpeed
-      value: 1.75
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 519420030, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
       propertyPath: m_targetPosition.x
@@ -313,6 +313,10 @@ PrefabInstance:
     - target: {fileID: 519420030, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
       propertyPath: m_slowOnArrive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 519420030, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
+      propertyPath: MAX_SPEED
+      value: 0.0129
       objectReference: {fileID: 0}
     - target: {fileID: 5555847409839700512, guid: 342c5c13d3c449d43b115c2ed5fc937c,
         type: 3}

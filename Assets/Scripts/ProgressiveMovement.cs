@@ -5,14 +5,14 @@ using Globals;
 
 public class ProgressiveMovement : MonoBehaviour
 {
-    const float MAX_SPEED_RANGE = 0.01f;
+    const float MAX_SPEED_RANGE = 0.08f;
     const float MAX_ACCELERATION = 0.5f;
     const float MAX_ARRIVE_RADIUS = 0.1f;
 
-    [Range(1, MAX_SPEED_RANGE * 1000.0f)]
+    [Range(0, MAX_SPEED_RANGE)]
     [SerializeField]
-    private int MAX_SPEED;
-    [Range(0, MAX_SPEED_RANGE * 1000.0f)]
+    private float MAX_SPEED;
+    [Range(0, MAX_SPEED_RANGE)]
     [SerializeField]
     private float m_initialSpeed;
     [SerializeField]
@@ -40,7 +40,7 @@ public class ProgressiveMovement : MonoBehaviour
     void Start()
     {
         m_position = transform.position;
-        m_currentSpeed = m_initialSpeed / 100.0f;
+        m_currentSpeed = m_initialSpeed;
         m_orientation = transform.rotation.z;
         m_arrived = false;
     }
@@ -74,6 +74,17 @@ public class ProgressiveMovement : MonoBehaviour
             m_currentSpeed = MAX_SPEED_RANGE * (l_distance / (float)(m_maxSlowRadius));
         }
     }
+
+    /// <summary>
+    /// Cap the current speed to the maximum speed
+    /// </summary>
+    private void CapSpeed()
+	{
+        if(m_currentSpeed > MAX_SPEED)
+		{
+            m_currentSpeed = MAX_SPEED;
+		}
+	}
 
     /// <summary>
     /// Gets the linear steering vector to the target loaction
@@ -136,7 +147,7 @@ public class ProgressiveMovement : MonoBehaviour
 		{
             CheckPosition();
 		}
-        
+        CapSpeed();
     }
 
     /// <summary>
