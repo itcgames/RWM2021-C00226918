@@ -16,7 +16,7 @@ public class ProgressiveMovement : MonoBehaviour
     [SerializeField]
     private float m_initialSpeed;
     [SerializeField]
-    private float MAX_SLOW_RADIUS = 2.5f;
+    private float m_maxSlowRadius = 2.5f;
     [SerializeField]
     private Vector3 m_targetPosition;
 
@@ -59,9 +59,9 @@ public class ProgressiveMovement : MonoBehaviour
             m_currentSpeed = 0.0f;
         }
         //slow down when within slow down radius
-        else if(l_distance >= MAX_ARRIVE_RADIUS && l_distance < MAX_SLOW_RADIUS)
+        else if(l_distance >= MAX_ARRIVE_RADIUS && l_distance < m_maxSlowRadius)
         {
-            m_currentSpeed = MAX_SPEED_RANGE * (l_distance / (float)(MAX_SLOW_RADIUS));
+            m_currentSpeed = MAX_SPEED_RANGE * (l_distance / (float)(m_maxSlowRadius));
         }
     }
 
@@ -136,4 +136,5 @@ public class ProgressiveMovement : MonoBehaviour
     public CameraMovementState GetCameraState() { return m_state; }
     public Vector3 GetTargetPosition() { return m_targetPosition; }
     public Vector3 GetCameraPosition() { return m_position; }
+    public float GetCurrentSpeed() { return m_currentSpeed; }
 }

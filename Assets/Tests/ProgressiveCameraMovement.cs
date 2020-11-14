@@ -39,4 +39,17 @@ public class ProgressiveCameraMovement
         float nextMagnitude = Globals.Globals.Magnitude(currentPos - targetPos);
         Assert.Less(nextMagnitude, startMagnitude);
     }
+
+    [UnityTest]
+    public IEnumerator SlowOnArrive()
+    {
+        progressiveMovement.SetCameraState(0);
+        progressiveMovement.SetCurrentSpeed(5.0f);
+        progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
+        progressiveMovement.SetArrived(false);
+        float initialSpeed = progressiveMovement.GetCurrentSpeed();
+        yield return new WaitForSeconds(0.1f);
+        float currentSpeed = progressiveMovement.GetCurrentSpeed();
+        Assert.Less(currentSpeed, initialSpeed);
+    }
 }
