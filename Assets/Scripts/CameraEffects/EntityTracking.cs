@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Globals;
 
+///@author Francis Carroll
+///@date 27/11/20
 public enum TrackingType
 {
     Tight,
