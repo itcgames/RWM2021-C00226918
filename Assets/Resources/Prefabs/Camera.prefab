@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 5555847409839700700}
   - component: {fileID: 5555847409839700515}
   - component: {fileID: 5555847409839700513}
-  - component: {fileID: 519420030}
+  - component: {fileID: 83358865}
+  - component: {fileID: 83358866}
+  - component: {fileID: 83358867}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -84,7 +86,22 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5555847409839700512}
   m_Enabled: 1
---- !u!114 &519420030
+--- !u!114 &83358865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5555847409839700512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45caa83d870770469e8cd1f79ff9f31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_scriptActive: 0
+  m_trackedEntity: {fileID: 0}
+  m_trackTightly: 1
+--- !u!114 &83358866
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,7 +113,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633e62d894d9e2040a41b2ffe32858d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MAX_SPEED: 10
-  m_initialSpeed: 0
+  m_scriptActive: 0
+  m_maxSpeed: 0.08
+  m_initialSpeed: 0.04
+  m_maxSlowRadius: 2.5
   m_targetPosition: {x: 0, y: 0, z: 0}
+  m_slowOnArrive: 1
   m_state: 0
+--- !u!114 &83358867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5555847409839700512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 963d2d05d1646a446b8bb34e65d61e1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

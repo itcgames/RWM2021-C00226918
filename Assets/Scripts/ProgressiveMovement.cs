@@ -8,10 +8,11 @@ using Globals;
 
 public class ProgressiveMovement : MonoBehaviour
 {
-    const float MAX_SPEED_RANGE = 0.08f;
-    const float MAX_ACCELERATION = 0.5f;
-    const float MAX_ARRIVE_RADIUS = 0.1f;
-
+    private const float MAX_SPEED_RANGE = 0.08f;
+    private const float MAX_ACCELERATION = 0.5f;
+    private const float MAX_ARRIVE_RADIUS = 0.1f;
+    [SerializeField]
+    private bool m_scriptActive = false;
     [Range(0, MAX_SPEED_RANGE)]
     [SerializeField]
     private float m_maxSpeed = MAX_SPEED_RANGE;
@@ -33,48 +34,65 @@ public class ProgressiveMovement : MonoBehaviour
     [SerializeField]
     private CameraMovementState m_state;
 
-    private Vector3 m_position;
-    private Vector3 m_velocity;
-    private Vector3 m_linearSteering;
-    private float m_currentSpeed;
-    private float m_orientation;
     private bool m_arrived;
+
+    private CameraData m_cameraData;
 
     void Start()
     {
-        m_position = transform.position;
-        m_currentSpeed = m_initialSpeed;
-        m_orientation = transform.rotation.z;
-        m_arrived = false;
+        if(m_scriptActive)
+		{
+            Initialisation();
+		}
+    }
+
+    void Initialisation()
+	{
+        m_cameraData = GetComponent<CameraData>();
+        m_cameraData.SetPosition(transform.position);
+        m_cameraData.SetCurrentSpeed(m_initialSpeed);
+        m_cameraData.SetOrientation(transform.rotation.z);
+
+        if (m_cameraData.GetPosition() == m_targetPosition)
+        {
+            m_arrived = true;
+        }
+        else
+        {
+            m_arrived = false;
+        }
     }
 
 	private void LateUpdate()
 	{
-        Movement();
+        if(m_scriptActive)
+		{
+            Movement();
+        }
 	}
 
     private void CheckPosition()
-	{
-        if (Globals.Globals.Magnitude(m_position - m_targetPosition) < MAX_ARRIVE_RADIUS)
-        {
-            m_arrived = true;
-        }
+    {
+		if (Globals.Globals.Magnitude(m_targetPosition - m_cameraData.GetPosition()) < MAX_ARRIVE_RADIUS)
+		{
+			m_arrived = true;
+		}
     }
 
     private void ArriveAtLocation()
 	{
-        float l_distance = Globals.Globals.Magnitude(m_targetPosition - m_position);
+        float l_distance = Globals.Globals.Magnitude(m_targetPosition - m_cameraData.GetPosition());
 
         //calculate the speed based on the position relative to the target
         if (l_distance < MAX_ARRIVE_RADIUS)
         {
             m_arrived = true;
-            m_currentSpeed = 0.0f;
+            m_cameraData.SetCurrentSpeed(0.0f);
         }
         //slow down when within slow down radius
         else if(l_distance >= MAX_ARRIVE_RADIUS && l_distance < m_maxSlowRadius)
         {
-            m_currentSpeed = MAX_SPEED_RANGE * (l_distance / (float)(m_maxSlowRadius));
+            m_cameraData.SetCurrentSpeed(MAX_SPEED_RANGE * (l_distance / (float)(m_maxSlowRadius)));
         }
     }
 
@@ -83,9 +101,9 @@ public class ProgressiveMovement : MonoBehaviour
     /// </summary>
     private void CapSpeed()
 	{
-        if(m_currentSpeed > m_maxSpeed)
+        if(m_cameraData.GetCurrentSpeed() > m_maxSpeed)
 		{
-            m_currentSpeed = m_maxSpeed;
+            m_cameraData.SetCurrentSpeed(m_maxSpeed);
 		}
 	}
 
@@ -108,15 +126,14 @@ public class ProgressiveMovement : MonoBehaviour
     /// </summary>
     private void SteeringMovement()
 	{
-        m_linearSteering = GetSeeringToLocation(m_position, m_targetPosition);
-        m_velocity = m_velocity + m_linearSteering * Time.deltaTime;
-        m_velocity.z = 0;
+        m_cameraData.SetLinearSteering(GetSeeringToLocation(m_cameraData.GetPosition(), m_targetPosition));
+        m_cameraData.SetVelocity(m_cameraData.GetVelocity() + m_cameraData.GetLinearSteering() * Time.deltaTime);
 
         //if the velocity is greater than the max speed, normalise and cap at max speed.
-        if(Globals.Globals.Magnitude(m_velocity) > m_maxSpeed)
+        if(Globals.Globals.Magnitude(m_cameraData.GetVelocity()) > m_maxSpeed)
 		{
-            m_velocity = Globals.Globals.Normalise(m_velocity);
-            m_velocity = m_velocity * m_maxSpeed;
+            m_cameraData.SetVelocity(Globals.Globals.Normalise(m_cameraData.GetVelocity()));
+            m_cameraData.SetVelocity(m_cameraData.GetVelocity() * m_maxSpeed);
 		}
     }
 
@@ -133,14 +150,15 @@ public class ProgressiveMovement : MonoBehaviour
             {
                 SteeringMovement();
             }
+
             //calculates the orientaion as a vector
-            Vector3 orientationVector = Globals.Globals.CreateVector(-Mathf.Sin(m_orientation), Mathf.Cos(m_orientation));
-            m_velocity = m_currentSpeed * orientationVector;
+            Vector3 orientationVector = Globals.Globals.CreateVector(-Mathf.Sin(m_cameraData.GetOrientation()), Mathf.Cos(m_cameraData.GetOrientation()));
+            m_cameraData.SetVelocity(m_cameraData.GetCurrentSpeed() * orientationVector);
 
-            m_position += m_velocity;
-            m_orientation = Globals.Globals.GetNewOrientation(m_orientation, m_targetPosition - m_position);
+            m_cameraData.SetPosition(m_cameraData.GetPosition() + m_cameraData.GetVelocity());
+            m_cameraData.SetOrientation(Globals.Globals.GetNewOrientation(m_cameraData.GetOrientation(), m_targetPosition - m_cameraData.GetPosition()));
 
-            transform.position = m_position;
+            transform.position = m_cameraData.GetPosition();
         }
 		if (m_slowOnArrive)
 		{
@@ -153,22 +171,17 @@ public class ProgressiveMovement : MonoBehaviour
         CapSpeed();
     }
 
-    /// <summary>
-    /// Setters
-    /// </summary>
+    //setters
     public void SetTargetPosition(Vector3 t_position) { m_targetPosition = t_position; }
-    public void SetInitialSpeed(float t_initialSpeed) { m_initialSpeed = t_initialSpeed; }
-    public void SetCurrentSpeed(float t_speed) { m_currentSpeed = t_speed; }
     public void SetCameraState(CameraMovementState t_state) { m_state = t_state; }
     public void SetArrived(bool t_arrive) { m_arrived = t_arrive; }
     public void SetMaxSpeed(float t_speed) { m_maxSpeed = t_speed; }
+    public void SetSpriptActive(bool t_active) { m_scriptActive = t_active; }
 
-    /// <summary>
-    /// Getters
-    /// </summary>
+    //getters
     public CameraMovementState GetCameraState() { return m_state; }
     public Vector3 GetTargetPosition() { return m_targetPosition; }
-    public Vector3 GetCameraPosition() { return m_position; }
-    public float GetCurrentSpeed() { return m_currentSpeed; }
     public float GetMaxSpeed() { return m_maxSpeed; }
+    public bool GetArrived() { return m_arrived; }
+    public bool GetScriptActive() { return m_scriptActive; }
 }
