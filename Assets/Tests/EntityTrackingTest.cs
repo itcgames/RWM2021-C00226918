@@ -53,4 +53,35 @@ public class EntityTrackingTest
 		float nextMagnitude = Globals.Globals.Magnitude(cameraData.GetPosition() - Player.transform.position);
 		Assert.Less(nextMagnitude, startMagnitude);
 	}
+
+    [UnityTest]
+    public IEnumerator LooselyTrackEntityWOffset()
+    {
+        entityTracking.SetTrackingOffset(new Vector3(2, 0, 0));
+        entityTracking.SetScriptActive(true);
+        entityTracking.SetTrackingState(TrackingType.Follow);
+        entityTracking.SetTrackedEntity(Player);
+        cameraData.SetCurrentSpeed(0.08f);
+        Player.transform.position = new Vector3(10.0f, 20.0f, 0.0f);
+        Vector3 initialPos = cameraData.GetPosition();
+        yield return new WaitForSeconds(0.1f);
+        float startMagnitude = Globals.Globals.Magnitude(initialPos - Player.transform.position);
+        float nextMagnitude = Globals.Globals.Magnitude(cameraData.GetPosition() - Player.transform.position);
+        Assert.Less(nextMagnitude, startMagnitude);
+    }
+
+    [UnityTest]
+    public IEnumerator TightlyTrackEntityWOffset()
+    {
+        entityTracking.SetTrackingOffset(new Vector3(2,3, 0));
+        entityTracking.SetScriptActive(true);
+        entityTracking.SetTrackingState(TrackingType.Tight);
+        entityTracking.SetTrackedEntity(Player);
+        cameraData.SetCurrentSpeed(0.08f);
+        Player.transform.position = new Vector3(10.0f, 20.0f, 0.0f);
+        Vector3 initialPos = cameraData.GetPosition();
+        yield return new WaitForSeconds(0.1f);
+        Assert.AreEqual(Player.transform.position.x - entityTracking.GetTrackingOffset().x, cameraData.GetPosition().x);
+        Assert.AreEqual(Player.transform.position.y - entityTracking.GetTrackingOffset().y, cameraData.GetPosition().y);
+    }
 }

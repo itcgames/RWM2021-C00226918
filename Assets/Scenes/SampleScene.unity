@@ -300,6 +300,18 @@ PrefabInstance:
       propertyPath: m_trackedEntity
       value: 
       objectReference: {fileID: 884045642}
+    - target: {fileID: 83358865, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
+      propertyPath: m_trackingOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 83358865, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
+      propertyPath: m_trackingType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 83358865, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
+      propertyPath: m_trackingOffset.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5555847409839700512, guid: 342c5c13d3c449d43b115c2ed5fc937c,
         type: 3}
       propertyPath: m_Name

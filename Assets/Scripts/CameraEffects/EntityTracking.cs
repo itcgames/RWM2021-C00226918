@@ -25,6 +25,9 @@ public class EntityTracking : MonoBehaviour
     [SerializeField]
     private TrackingType m_trackingType;
 
+    [SerializeField]
+    private Vector3 m_trackingOffset;
+
     [Header("'Follow' Tracking")]
     [Range(0, MAX_SPEED_RANGE)]
     [SerializeField]
@@ -53,7 +56,7 @@ public class EntityTracking : MonoBehaviour
             //if the camera is tightly tracking the entity
             if (m_trackingType == TrackingType.Tight)
             {
-                m_cameraData.SetPosition(new Vector3(m_trackedEntity.transform.position.x, m_trackedEntity.transform.position.y, m_cameraData.GetPosition().z));
+                m_cameraData.SetPosition(new Vector3(m_trackedEntity.transform.position.x, m_trackedEntity.transform.position.y, m_cameraData.GetPosition().z) - m_trackingOffset);
             }
             else if(m_trackingType == TrackingType.Follow)
 			{
@@ -63,7 +66,7 @@ public class EntityTracking : MonoBehaviour
                 m_cameraData.SetVelocity(m_cameraData.GetCurrentSpeed() * orientationVector);
 
                 m_cameraData.SetPosition(m_cameraData.GetPosition() + m_cameraData.GetVelocity());
-                m_cameraData.SetOrientation(Globals.Globals.GetNewOrientation(m_cameraData.GetOrientation(), m_trackedEntity.transform.position - m_cameraData.GetPosition()));
+                m_cameraData.SetOrientation(Globals.Globals.GetNewOrientation(m_cameraData.GetOrientation(), m_trackedEntity.transform.position - (m_cameraData.GetPosition() - m_trackingOffset)));
 
                 Arrive();
             }
@@ -73,13 +76,13 @@ public class EntityTracking : MonoBehaviour
 
     void Steering()
 	{
-        m_cameraData.SetLinearSteering(GetSeeringToLocation(m_cameraData.GetPosition(), m_trackedEntity.transform.position));
+        m_cameraData.SetLinearSteering(GetSeeringToLocation(m_cameraData.GetPosition() + m_trackingOffset, m_trackedEntity.transform.position));
         m_cameraData.SetVelocity(m_cameraData.GetVelocity() + m_cameraData.GetLinearSteering() * Time.deltaTime);
     }
 
     void Arrive()
 	{
-        float l_distance = Globals.Globals.Magnitude(m_trackedEntity.transform.position - m_cameraData.GetPosition());
+        float l_distance = Globals.Globals.Magnitude(m_trackedEntity.transform.position - (m_cameraData.GetPosition() - m_trackingOffset));
 
         //calculate the speed based on the position relative to the target
         if (l_distance < MAX_ARRIVE_RADIUS)
@@ -117,9 +120,11 @@ public class EntityTracking : MonoBehaviour
     public TrackingType GetTrackingState() { return m_trackingType; }
     public GameObject GetTrackedEntity() { return m_trackedEntity;  }
     public bool GetScriptActive() { return m_scriptActive; }
+    public Vector3 GetTrackingOffset() { return m_trackingOffset; }
 
     //setters
     public void SetTrackingState(TrackingType t_trackingState) { m_trackingType = t_trackingState; }
     public void SetTrackedEntity(GameObject t_trackedEntity) { m_trackedEntity = t_trackedEntity; }
     public void SetScriptActive(bool t_active) { m_scriptActive = t_active; }
+    public void SetTrackingOffset(Vector3 t_trackingOffset) { m_trackingOffset = t_trackingOffset; }
 }
