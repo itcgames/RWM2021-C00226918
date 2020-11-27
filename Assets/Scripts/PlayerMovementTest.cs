@@ -14,6 +14,8 @@ public class PlayerMovementTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //player movement
+
         if (Input.GetKey(KeyCode.D))
         {
             GetComponent<Rigidbody2D>().position = new Vector2(GetComponent<Rigidbody2D>().position.x + moveSpeed, GetComponent<Rigidbody2D>().position.y);
