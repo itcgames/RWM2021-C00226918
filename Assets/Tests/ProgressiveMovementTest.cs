@@ -29,6 +29,7 @@ public class ProgressiveCameraMovement
     [UnityTest]
     public IEnumerator CheckCameraMovedTowardsTarget()
     {
+        progressiveMovement.SetSpriptActive(true);
         progressiveMovement.SetCameraState(0);
         progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
         progressiveMovement.SetArrived(false);
@@ -45,6 +46,7 @@ public class ProgressiveCameraMovement
     [UnityTest]
     public IEnumerator SlowOnArrive()
     {
+        progressiveMovement.SetSpriptActive(true);
         progressiveMovement.SetCameraState(0);
         cameraData.SetCurrentSpeed(5.0f);
         progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
@@ -58,6 +60,7 @@ public class ProgressiveCameraMovement
     [UnityTest]
     public IEnumerator CheckSpeedCap()
     {
+        progressiveMovement.SetSpriptActive(true);
         progressiveMovement.SetCameraState(0);
         cameraData.SetCurrentSpeed(3.0f);
         progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));

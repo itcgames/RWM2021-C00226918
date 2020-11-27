@@ -40,7 +40,8 @@ public class ProgressiveMovement : MonoBehaviour
 
     void Start()
     {
-        if(m_scriptActive)
+        m_cameraData = GetComponent<CameraData>();
+        if (m_scriptActive)
 		{
             Initialisation();
 		}
@@ -48,7 +49,6 @@ public class ProgressiveMovement : MonoBehaviour
 
     void Initialisation()
 	{
-        m_cameraData = GetComponent<CameraData>();
         m_cameraData.SetPosition(transform.position);
         m_cameraData.SetCurrentSpeed(m_initialSpeed);
         m_cameraData.SetOrientation(transform.rotation.z);

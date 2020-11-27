@@ -4,23 +4,36 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Tests
+public class EntityTrackingTest
 {
-    public class EntityTrackingTest
+    private EntityTracking entityTracking;
+    private CameraData cameraData;
+    private GameObject Player;
+
+    [SetUp]
+    public void Setup()
     {
-        private EntityTracking entityTracking;
+        GameObject cameraObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Camera"));
+        entityTracking = cameraObject.GetComponent<EntityTracking>();
+        cameraData = cameraObject.GetComponent<CameraData>();
+        Player = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/TestPlayer"));
+    }
 
-        [SetUp]
-        public void Setup()
-        {
-            GameObject gameGameObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Camera"));
-            entityTracking = gameGameObject.GetComponent<EntityTracking>();
-        }
+    [TearDown]
+    public void Teardown()
+    {
+        Object.Destroy(entityTracking.gameObject);
+        Object.Destroy(cameraData.gameObject);
+    }
 
-        [TearDown]
-        public void Teardown()
-        {
-            Object.Destroy(entityTracking.gameObject);
-        }
+    [UnityTest]
+    public IEnumerator TightEntityTracking()
+	{
+        entityTracking.SetScriptActive(true);
+        entityTracking.SetTrackedTightly(true);
+        entityTracking.SetTrackedEntity(Player);
+        Player.transform.position = new Vector3(10.0f,20.0f,0.0f);
+        yield return new WaitForSeconds(0.1f);
+        Assert.AreEqual(Player.transform.position, cameraData.GetPosition());
     }
 }
