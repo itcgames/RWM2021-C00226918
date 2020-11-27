@@ -297,25 +297,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 83358865, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
-      propertyPath: m_scriptActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 83358865, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
       propertyPath: m_trackedEntity
       value: 
       objectReference: {fileID: 884045642}
-    - target: {fileID: 83358866, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
-      propertyPath: m_scriptActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 83358866, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
-      propertyPath: m_targetPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 83358866, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
-      propertyPath: m_targetPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5555847409839700512, guid: 342c5c13d3c449d43b115c2ed5fc937c,
         type: 3}
       propertyPath: m_Name

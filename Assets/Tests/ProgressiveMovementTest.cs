@@ -27,10 +27,10 @@ public class ProgressiveCameraMovement
     }
 
     [UnityTest]
-    public IEnumerator CheckCameraMovedTowardsTarget()
+    public IEnumerator CheckCameraMovedTowardsTargetKinematic()
     {
+        progressiveMovement.SetCameraState(CameraMovementState.Kinematic);
         progressiveMovement.SetSpriptActive(true);
-        progressiveMovement.SetCameraState(0);
         progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
         progressiveMovement.SetArrived(false);
         cameraData.SetCurrentSpeed(2.0f);
@@ -44,10 +44,41 @@ public class ProgressiveCameraMovement
     }
 
     [UnityTest]
-    public IEnumerator SlowOnArrive()
+    public IEnumerator CheckCameraMovedTowardsTargetSteering()
+    {
+        progressiveMovement.SetCameraState(CameraMovementState.Steering);
+        progressiveMovement.SetSpriptActive(true);
+        progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
+        progressiveMovement.SetArrived(false);
+        cameraData.SetCurrentSpeed(2.0f);
+        Vector3 targetPos = progressiveMovement.GetTargetPosition();
+        Vector3 initialPos = cameraData.GetPosition();
+        yield return new WaitForSeconds(0.1f);
+        Vector3 currentPos = cameraData.GetPosition();
+        float startMagnitude = Globals.Globals.Magnitude(initialPos - targetPos);
+        float nextMagnitude = Globals.Globals.Magnitude(currentPos - targetPos);
+        Assert.Less(nextMagnitude, startMagnitude);
+    }
+
+    [UnityTest]
+    public IEnumerator SlowOnArriveKinematic()
+    {
+        progressiveMovement.SetCameraState(CameraMovementState.Kinematic);
+        progressiveMovement.SetSpriptActive(true);
+        cameraData.SetCurrentSpeed(5.0f);
+        progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
+        progressiveMovement.SetArrived(false);
+        float initialSpeed = cameraData.GetCurrentSpeed();
+        yield return new WaitForSeconds(0.1f);
+        float currentSpeed = cameraData.GetCurrentSpeed();
+        Assert.Less(currentSpeed, initialSpeed);
+    }
+
+    [UnityTest]
+    public IEnumerator SlowOnArriveSteering()
     {
         progressiveMovement.SetSpriptActive(true);
-        progressiveMovement.SetCameraState(0);
+        progressiveMovement.SetCameraState(CameraMovementState.Steering);
         cameraData.SetCurrentSpeed(5.0f);
         progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
         progressiveMovement.SetArrived(false);
@@ -60,8 +91,8 @@ public class ProgressiveCameraMovement
     [UnityTest]
     public IEnumerator CheckSpeedCap()
     {
+        progressiveMovement.SetCameraState(CameraMovementState.Kinematic);
         progressiveMovement.SetSpriptActive(true);
-        progressiveMovement.SetCameraState(0);
         cameraData.SetCurrentSpeed(3.0f);
         progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
         progressiveMovement.SetArrived(false);

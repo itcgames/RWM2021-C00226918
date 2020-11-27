@@ -30,7 +30,7 @@ public class EntityTrackingTest
     public IEnumerator TightEntityTracking()
 	{
         entityTracking.SetScriptActive(true);
-        entityTracking.SetTrackedTightly(true);
+        entityTracking.SetTrackingState(TrackingType.Tight);
         entityTracking.SetTrackedEntity(Player);
         Player.transform.position = new Vector3(10.0f,20.0f,0.0f);
         yield return new WaitForSeconds(0.1f);

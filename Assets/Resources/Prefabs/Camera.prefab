@@ -98,9 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b45caa83d870770469e8cd1f79ff9f31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_scriptActive: 0
+  m_scriptActive: 1
   m_trackedEntity: {fileID: 0}
-  m_trackTightly: 1
+  m_trackingType: 1
+  m_initialFollowSpeed: 0.0173
+  m_maxSlowRadius: 2.5
 --- !u!114 &83358866
 MonoBehaviour:
   m_ObjectHideFlags: 0

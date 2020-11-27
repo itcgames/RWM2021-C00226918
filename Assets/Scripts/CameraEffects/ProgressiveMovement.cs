@@ -6,6 +6,12 @@ using Globals;
 ///@author Francis Carroll
 ///@date 09/11/20
 
+public enum CameraMovementState
+{
+    Kinematic,
+    Steering
+}
+
 public class ProgressiveMovement : MonoBehaviour
 {
     private const float MAX_SPEED_RANGE = 0.08f;
@@ -26,11 +32,6 @@ public class ProgressiveMovement : MonoBehaviour
     [SerializeField]
     private bool m_slowOnArrive = true;
 
-    public enum CameraMovementState
-    {
-        Kinematic,
-        Steering
-    }
     [SerializeField]
     private CameraMovementState m_state;
 
