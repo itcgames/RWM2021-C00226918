@@ -177,7 +177,7 @@ public class ProgressiveMovement : MonoBehaviour
     public void SetCameraState(CameraMovementState t_state) { m_state = t_state; }
     public void SetArrived(bool t_arrive) { m_arrived = t_arrive; }
     public void SetMaxSpeed(float t_speed) { m_maxSpeed = t_speed; }
-    public void SetSpriptActive(bool t_active) { m_scriptActive = t_active; }
+    public void SetScriptActive(bool t_active) { m_scriptActive = t_active; }
 
     //getters
     public CameraMovementState GetCameraState() { return m_state; }

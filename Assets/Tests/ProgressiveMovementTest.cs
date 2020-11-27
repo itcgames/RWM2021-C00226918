@@ -17,6 +17,7 @@ public class ProgressiveCameraMovement
         GameObject cameraObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Camera"));
         progressiveMovement = cameraObject.GetComponent<ProgressiveMovement>();
         cameraData = cameraObject.GetComponent<CameraData>();
+        cameraObject.GetComponent<EntityTracking>().SetScriptActive(false);
     }
 
     [TearDown]
@@ -30,7 +31,7 @@ public class ProgressiveCameraMovement
     public IEnumerator CheckCameraMovedTowardsTargetKinematic()
     {
         progressiveMovement.SetCameraState(CameraMovementState.Kinematic);
-        progressiveMovement.SetSpriptActive(true);
+        progressiveMovement.SetScriptActive(true);
         progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
         progressiveMovement.SetArrived(false);
         cameraData.SetCurrentSpeed(2.0f);
@@ -47,7 +48,7 @@ public class ProgressiveCameraMovement
     public IEnumerator CheckCameraMovedTowardsTargetSteering()
     {
         progressiveMovement.SetCameraState(CameraMovementState.Steering);
-        progressiveMovement.SetSpriptActive(true);
+        progressiveMovement.SetScriptActive(true);
         progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
         progressiveMovement.SetArrived(false);
         cameraData.SetCurrentSpeed(2.0f);
@@ -64,7 +65,7 @@ public class ProgressiveCameraMovement
     public IEnumerator SlowOnArriveKinematic()
     {
         progressiveMovement.SetCameraState(CameraMovementState.Kinematic);
-        progressiveMovement.SetSpriptActive(true);
+        progressiveMovement.SetScriptActive(true);
         cameraData.SetCurrentSpeed(5.0f);
         progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
         progressiveMovement.SetArrived(false);
@@ -77,7 +78,7 @@ public class ProgressiveCameraMovement
     [UnityTest]
     public IEnumerator SlowOnArriveSteering()
     {
-        progressiveMovement.SetSpriptActive(true);
+        progressiveMovement.SetScriptActive(true);
         progressiveMovement.SetCameraState(CameraMovementState.Steering);
         cameraData.SetCurrentSpeed(5.0f);
         progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
@@ -92,7 +93,7 @@ public class ProgressiveCameraMovement
     public IEnumerator CheckSpeedCap()
     {
         progressiveMovement.SetCameraState(CameraMovementState.Kinematic);
-        progressiveMovement.SetSpriptActive(true);
+        progressiveMovement.SetScriptActive(true);
         cameraData.SetCurrentSpeed(3.0f);
         progressiveMovement.SetTargetPosition(new Vector3(14.0f, 10.0f, 0.0f));
         progressiveMovement.SetArrived(false);

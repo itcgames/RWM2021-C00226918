@@ -99,7 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_scriptActive: 1
-  m_trackedEntity: {fileID: 0}
+  m_trackedEntity: {fileID: 755864239528878096, guid: 119668683aecb6245a5bf90b00de7cdd,
+    type: 3}
   m_trackingType: 1
   m_initialFollowSpeed: 0.0173
   m_maxSlowRadius: 2.5
