@@ -41,36 +41,69 @@ public class ProgressiveMovement : MonoBehaviour
 
     void Start()
     {
-        m_cameraData = GetComponent<CameraData>();
-        if (m_scriptActive)
-		{
-            Initialisation();
-		}
+        Initialisation();
     }
 
     void Initialisation()
 	{
-        m_cameraData.SetPosition(transform.position);
-        m_cameraData.SetCurrentSpeed(m_initialSpeed);
-        m_cameraData.SetOrientation(transform.rotation.z);
+        m_cameraData = GetComponent<CameraData>();
+        if (m_scriptActive)
+        {
+            m_cameraData.SetPosition(transform.position);
+            m_cameraData.SetCurrentSpeed(m_initialSpeed);
+            m_cameraData.SetOrientation(transform.rotation.z);
 
-        if (m_cameraData.GetPosition() == m_targetPosition)
-        {
-            m_arrived = true;
-        }
-        else
-        {
-            m_arrived = false;
+            if (m_cameraData.GetPosition() == m_targetPosition)
+            {
+                m_arrived = true;
+            }
+            else
+            {
+                m_arrived = false;
+            }
         }
     }
 
 	private void LateUpdate()
 	{
-        if(m_scriptActive)
-		{
-            Movement();
-        }
+        Movement();
 	}
+
+    /// <summary>
+    /// Movement of the camera using kinematic and steering
+    /// </summary>
+    public void Movement()
+	{
+        if (m_scriptActive)
+        {
+            if (!m_arrived)
+            {
+                //if the current camera's state is set to steering
+                if (m_state == CameraMovementState.Steering)
+                {
+                    SteeringMovement();
+                }
+
+                //calculates the orientaion as a vector
+                Vector3 orientationVector = Globals.Globals.CreateVector(-Mathf.Sin(m_cameraData.GetOrientation()), Mathf.Cos(m_cameraData.GetOrientation()));
+                m_cameraData.SetVelocity(m_cameraData.GetCurrentSpeed() * orientationVector);
+
+                m_cameraData.SetPosition(m_cameraData.GetPosition() + m_cameraData.GetVelocity());
+                m_cameraData.SetOrientation(Globals.Globals.GetNewOrientation(m_cameraData.GetOrientation(), m_targetPosition - m_cameraData.GetPosition()));
+
+                transform.position = m_cameraData.GetPosition();
+            }
+            if (m_slowOnArrive)
+            {
+                ArriveAtLocation();
+            }
+            else
+            {
+                CheckPosition();
+            }
+            CapSpeed();
+        }
+    }
 
     private void CheckPosition()
     {
@@ -136,40 +169,6 @@ public class ProgressiveMovement : MonoBehaviour
             m_cameraData.SetVelocity(Globals.Globals.Normalise(m_cameraData.GetVelocity()));
             m_cameraData.SetVelocity(m_cameraData.GetVelocity() * m_maxSpeed);
 		}
-    }
-
-    /// <summary>
-    /// Movement of the camera using kinematic and steering
-    /// </summary>
-    public void Movement()
-	{
-        //if the camera has not arrived at the target location
-        if (!m_arrived)
-        {
-            //if the current camera's state is set to steering
-            if (m_state == CameraMovementState.Steering)
-            {
-                SteeringMovement();
-            }
-
-            //calculates the orientaion as a vector
-            Vector3 orientationVector = Globals.Globals.CreateVector(-Mathf.Sin(m_cameraData.GetOrientation()), Mathf.Cos(m_cameraData.GetOrientation()));
-            m_cameraData.SetVelocity(m_cameraData.GetCurrentSpeed() * orientationVector);
-
-            m_cameraData.SetPosition(m_cameraData.GetPosition() + m_cameraData.GetVelocity());
-            m_cameraData.SetOrientation(Globals.Globals.GetNewOrientation(m_cameraData.GetOrientation(), m_targetPosition - m_cameraData.GetPosition()));
-
-            transform.position = m_cameraData.GetPosition();
-        }
-		if (m_slowOnArrive)
-		{
-            ArriveAtLocation();
-		}
-		else
-		{
-            CheckPosition();
-		}
-        CapSpeed();
     }
 
     //setters

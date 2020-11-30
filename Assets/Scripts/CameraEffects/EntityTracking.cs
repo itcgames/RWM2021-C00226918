@@ -40,9 +40,14 @@ public class EntityTracking : MonoBehaviour
 
     void Start()
     {
+        Initialise();
+    }
+
+    public void Initialise()
+	{
         m_cameraData = GetComponent<CameraData>();
         if (m_scriptActive)
-		{
+        {
             m_cameraData.SetPosition(transform.position);
             m_cameraData.SetCurrentSpeed(m_initialFollowSpeed);
         }
@@ -50,16 +55,21 @@ public class EntityTracking : MonoBehaviour
 
     void LateUpdate()
     {
+        Tracking();
+    }
+
+    public void Tracking()
+	{
         //if the spript is active
-        if(m_scriptActive)
-		{
+        if (m_scriptActive)
+        {
             //if the camera is tightly tracking the entity
             if (m_trackingType == TrackingType.Tight)
             {
                 m_cameraData.SetPosition(new Vector3(m_trackedEntity.transform.position.x, m_trackedEntity.transform.position.y, m_cameraData.GetPosition().z) - m_trackingOffset);
             }
-            else if(m_trackingType == TrackingType.Follow)
-			{
+            else if (m_trackingType == TrackingType.Follow)
+            {
                 Steering();
 
                 Vector3 orientationVector = Globals.Globals.CreateVector(-Mathf.Sin(m_cameraData.GetOrientation()), Mathf.Cos(m_cameraData.GetOrientation()));
