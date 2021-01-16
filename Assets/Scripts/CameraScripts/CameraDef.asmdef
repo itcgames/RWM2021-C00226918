@@ -1,6 +1,8 @@
 {
-    "name": "GameTests",
-    "references": [],
+    "name": "CameraDef",
+    "references": [
+        "GUID:caddef741ff84124d8dd4549b2ab3c80"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

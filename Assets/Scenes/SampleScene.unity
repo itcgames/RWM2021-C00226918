@@ -296,22 +296,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 83358865, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
-      propertyPath: m_trackedEntity
+    - target: {fileID: 927924199, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
+      propertyPath: m_player
       value: 
       objectReference: {fileID: 884045642}
-    - target: {fileID: 83358865, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
-      propertyPath: m_trackingOffset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 83358865, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
-      propertyPath: m_trackingType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 83358865, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
-      propertyPath: m_trackingOffset.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5555847409839700512, guid: 342c5c13d3c449d43b115c2ed5fc937c,
         type: 3}
       propertyPath: m_Name
@@ -385,6 +373,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TestPlayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 755864239528878097, guid: 119668683aecb6245a5bf90b00de7cdd,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 755864239528878103, guid: 119668683aecb6245a5bf90b00de7cdd,
         type: 3}
