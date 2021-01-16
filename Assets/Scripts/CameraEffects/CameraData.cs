@@ -16,6 +16,14 @@ public enum TrackingType
     Follow
 }
 
+public enum ZoomDirection
+{
+    None,
+	ZoomIn,
+	ZoomOut
+}
+
+
 public class CameraData : MonoBehaviour
 {
     private Vector3 m_position;
@@ -27,6 +35,8 @@ public class CameraData : MonoBehaviour
     private CameraMovementState m_state = CameraMovementState.None;
     private TrackingType m_trackingType = TrackingType.None;
     private Vector3 m_trackingOffset;
+    private ZoomDirection m_zoomDirection = ZoomDirection.None;
+    private float m_initialZoom;
 
     public void InitialiseCamera(Vector3 t_position, float t_speed, float t_orientation = 0.0f)
     {
@@ -52,6 +62,14 @@ public class CameraData : MonoBehaviour
         SetCameraState(CameraMovementState.None);
     }
 
+    public void InitialiseZoom(ZoomDirection t_direction)
+    {
+        SetZoomDirection(t_direction);
+        SetInitialZoom(GetPosition().z);
+        SetTrackingType(TrackingType.None);
+        SetCameraState(CameraMovementState.None);
+    }
+
     //getters
     public Vector3 GetPosition() { return m_position; }
     public Vector3 GetVelocity() { return m_velocity; }
@@ -62,6 +80,8 @@ public class CameraData : MonoBehaviour
     public TrackingType GetTrackingType() { return m_trackingType; }
     public Vector3 GetTrackingOffset() { return m_trackingOffset; }
     public float GetInitialSpeed() { return m_initialSpeed; }
+    public ZoomDirection GetZoomDirection() { return m_zoomDirection; }
+    public float GetInitialZoom() { return m_initialZoom; }
 
     //setters
     public void SetPosition(Vector3 t_position) { m_position = t_position; }
@@ -73,4 +93,6 @@ public class CameraData : MonoBehaviour
     public void SetTrackingType(TrackingType t_trackingType) { m_trackingType = t_trackingType; }
     public void SetTrackingOffset(Vector3 t_trackingOffset) { m_trackingOffset = t_trackingOffset; }
     public void SetInitialSpeed(float t_initialSpeed) { m_initialSpeed = t_initialSpeed; }
+    public void SetZoomDirection(ZoomDirection t_zoomDirection) { m_zoomDirection = t_zoomDirection; }
+    public void SetInitialZoom(float t_initialZoom) { m_initialZoom = t_initialZoom; }
 }

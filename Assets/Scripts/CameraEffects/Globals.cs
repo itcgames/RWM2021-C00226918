@@ -13,7 +13,9 @@ public class Globals
     public static float MAX_ACCELERATION = 0.5f;
     public static float VELOCITY_SLOW = 0.1f;
 
-    public static Vector3 CreateVector(float t_x, float t_y)
+	public static float MAX_ZOOM = 20.0f;
+
+	public static Vector3 CreateVector(float t_x, float t_y)
 	{
 		Vector3 vector;
 		vector.x = t_x;

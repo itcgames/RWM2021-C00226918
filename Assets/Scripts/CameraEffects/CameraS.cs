@@ -6,7 +6,8 @@ using UnityEngine;
 public enum Feature
 {
     Move, 
-    Track
+    Track,
+    Zoom
 }
 
 public class CameraS : MonoBehaviour
@@ -21,7 +22,7 @@ public class CameraS : MonoBehaviour
 
     void Start()
     {
-        m_state = Feature.Track;
+        m_state = Feature.Zoom;
         trackPos = new Vector3(14.0f, 10.0f, 0.0f);
         m_cameraData = GetComponent<CameraData>();
 
@@ -34,7 +35,11 @@ public class CameraS : MonoBehaviour
         {
             m_cameraData.InitialiseTracking(TrackingType.Follow, new Vector3(2.0f, 0.0f));
         }
-	}
+        else if (m_state == Feature.Zoom)
+        {
+            m_cameraData.InitialiseZoom(ZoomDirection.ZoomOut);
+        }
+    }
 
     // Update is called once per frame
     void LateUpdate()
@@ -49,6 +54,10 @@ public class CameraS : MonoBehaviour
 			{
                 PositionTracking.Tracking(ref m_cameraData, m_player.transform.position);
             }
+        }
+        else if (m_state == Feature.Zoom)
+        {
+            Zooming.ZoomInOutAmount(ref m_cameraData, 10.0f);
         }
 
         transform.position = m_cameraData.GetPosition();
