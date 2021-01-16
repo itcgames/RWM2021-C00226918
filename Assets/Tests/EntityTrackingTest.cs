@@ -26,6 +26,7 @@ public class EntityTrackingTest
 		Object.Destroy(cameraData.gameObject);
 		Object.Destroy(cam.gameObject);
 		Object.Destroy(cameraObject);
+		Object.Destroy(player);
 	}
 
 	[UnityTest]
