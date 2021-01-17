@@ -94,7 +94,7 @@ public class Zoom
     {
         cam.m_state = Feature.ZoomPosition;
         cam.trackPos = new Vector3(-5, 7, 0);
-        //cam.m_player = null;
+        cam.m_player = null;
         cameraData.InitialiseCamera(cameraObject.transform.position, 10.0f);
         cameraData.InitialiseZoom(ZoomDirection.ZoomIn, 10.0f, 1.0f, 10.0f, CameraMovementState.Steering);
 
@@ -106,5 +106,24 @@ public class Zoom
         Assert.AreEqual(Mathf.RoundToInt(cam.trackPos.x), Mathf.RoundToInt(cameraData.GetPosition().x));
         Assert.AreEqual(Mathf.RoundToInt(cam.trackPos.y), Mathf.RoundToInt(cameraData.GetPosition().y));
         Assert.AreEqual(Mathf.RoundToInt(initialZoom + cameraData.GetZoomAmount()), Mathf.RoundToInt(cameraData.GetPosition().z));
+    }
+
+    [UnityTest]
+    public IEnumerator TestZoomOutPosition()
+    {
+        cam.m_state = Feature.ZoomPosition;
+        cam.trackPos = new Vector3(-5, 7, 0);
+        cam.m_player = null;
+        cameraData.InitialiseCamera(cameraObject.transform.position, 10.0f);
+        cameraData.InitialiseZoom(ZoomDirection.ZoomOut, 10.0f, 1.0f, 10.0f, CameraMovementState.Kinematic);
+
+        float initialZoom = cameraData.GetPosition().z;
+        float time = cameraData.GetTimeForZoom();
+
+        yield return new WaitForSeconds(2.0f);
+
+        Assert.AreEqual(Mathf.RoundToInt(cam.trackPos.x), Mathf.RoundToInt(cameraData.GetPosition().x));
+        Assert.AreEqual(Mathf.RoundToInt(cam.trackPos.y), Mathf.RoundToInt(cameraData.GetPosition().y));
+        Assert.AreEqual(Mathf.RoundToInt(initialZoom - cameraData.GetZoomAmount()), Mathf.RoundToInt(cameraData.GetPosition().z));
     }
 }

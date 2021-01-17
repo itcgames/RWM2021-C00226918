@@ -63,9 +63,8 @@ public class Zooming
 
 		t_data.SetTimeForZoom(time);
 
-		ZoomInOutTime(ref t_data);
-
 		ProgressiveMovement.Move(ref t_data, t_position);
+		ZoomInOutTime(ref t_data);
 	}
 
 	private static void ZoomMovement(ref CameraData t_data)

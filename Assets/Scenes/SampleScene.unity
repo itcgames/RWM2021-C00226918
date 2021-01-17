@@ -283,31 +283,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &884045642 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 755864239528878096, guid: 119668683aecb6245a5bf90b00de7cdd,
-    type: 3}
-  m_PrefabInstance: {fileID: 755864239188170586}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &1795684597
+--- !u!1001 &1333524482
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 927924199, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
-      propertyPath: m_player
-      value: 
-      objectReference: {fileID: 884045642}
-    - target: {fileID: 927924199, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
-      propertyPath: trackPos.x
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 927924199, guid: 342c5c13d3c449d43b115c2ed5fc937c, type: 3}
-      propertyPath: trackPos.y
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 5555847409839700512, guid: 342c5c13d3c449d43b115c2ed5fc937c,
         type: 3}
       propertyPath: m_Name

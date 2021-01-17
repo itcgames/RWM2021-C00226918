@@ -109,6 +109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1104fac8d184a2944a875873cab4789d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_player: {fileID: 0}
+  m_player: {fileID: 755864239528878096, guid: 119668683aecb6245a5bf90b00de7cdd, type: 3}
   m_state: 0
-  trackPos: {x: 14, y: 10, z: 0}
+  trackPos: {x: -5, y: 7, z: 0}
