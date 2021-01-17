@@ -29,7 +29,7 @@ public class Zoom
     [UnityTest]
     public IEnumerator TestZoomIn()
     {
-        cam.m_state = Feature.Zoom;
+        cam.m_state = Feature.ZoomAmount;
         cameraData.InitialiseCamera(cameraObject.transform.position, 10.0f);
         cameraData.InitialiseZoom(ZoomDirection.ZoomIn);
 
@@ -45,7 +45,7 @@ public class Zoom
     [UnityTest]
     public IEnumerator TestZoomOut()
     {
-        cam.m_state = Feature.Zoom;
+        cam.m_state = Feature.ZoomAmount;
         cameraData.InitialiseCamera(cameraObject.transform.position, 10.0f);
         cameraData.InitialiseZoom(ZoomDirection.ZoomOut);
 

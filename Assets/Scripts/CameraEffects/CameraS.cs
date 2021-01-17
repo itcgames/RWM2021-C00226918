@@ -7,7 +7,8 @@ public enum Feature
 {
     Move, 
     Track,
-    Zoom
+    ZoomAmount,
+    ZoomTime
 }
 
 public class CameraS : MonoBehaviour
@@ -22,7 +23,7 @@ public class CameraS : MonoBehaviour
 
     void Start()
     {
-        m_state = Feature.Zoom;
+        m_state = Feature.ZoomTime;
         trackPos = new Vector3(14.0f, 10.0f, 0.0f);
         m_cameraData = GetComponent<CameraData>();
 
@@ -35,7 +36,7 @@ public class CameraS : MonoBehaviour
         {
             m_cameraData.InitialiseTracking(TrackingType.Follow, new Vector3(2.0f, 0.0f));
         }
-        else if (m_state == Feature.Zoom)
+        else if (m_state == Feature.ZoomAmount || m_state == Feature.ZoomTime)
         {
             m_cameraData.InitialiseZoom(ZoomDirection.ZoomOut);
         }
@@ -44,22 +45,28 @@ public class CameraS : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (m_state == Feature.Move)
-        {
-            ProgressiveMovement.Move(ref m_cameraData, new Vector3(14.0f, 10.0f, 0.0f));
-        }
-        else if (m_state == Feature.Track)
+        switch(m_state)
 		{
-            if(m_player != null)
-			{
-                PositionTracking.Tracking(ref m_cameraData, m_player.transform.position);
+            case Feature.Move:
+                ProgressiveMovement.Move(ref m_cameraData, new Vector3(14.0f, 10.0f, 0.0f));
+                break;
+            case Feature.Track:
+            {
+                if (m_player != null)
+                {
+                    PositionTracking.Tracking(ref m_cameraData, m_player.transform.position);
+                }
+                break;
             }
+            case Feature.ZoomAmount:
+                Zooming.ZoomInOutAmount(ref m_cameraData, 10.0f);
+                break;
+            case Feature.ZoomTime:
+                Zooming.ZoomInOutTime(ref m_cameraData, 5.0f, 10.0f);
+                break;
+            default:
+                break;
         }
-        else if (m_state == Feature.Zoom)
-        {
-            Zooming.ZoomInOutAmount(ref m_cameraData, 10.0f);
-        }
-
         transform.position = m_cameraData.GetPosition();
     }
 }
