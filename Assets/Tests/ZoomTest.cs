@@ -31,7 +31,7 @@ public class Zoom
     {
         cam.m_state = Feature.ZoomAmount;
         cameraData.InitialiseCamera(cameraObject.transform.position, 10.0f);
-        cameraData.InitialiseZoom(ZoomDirection.ZoomIn);
+        cameraData.InitialiseZoom(ZoomDirection.ZoomIn,10.0f);
 
         float initialZoom = cameraData.GetPosition().z;
 
@@ -47,7 +47,7 @@ public class Zoom
     {
         cam.m_state = Feature.ZoomAmount;
         cameraData.InitialiseCamera(cameraObject.transform.position, 10.0f);
-        cameraData.InitialiseZoom(ZoomDirection.ZoomOut);
+        cameraData.InitialiseZoom(ZoomDirection.ZoomOut, 10.0f);
 
         float initialZoom = cameraData.GetPosition().z;
 
@@ -64,7 +64,7 @@ public class Zoom
     {
         cam.m_state = Feature.ZoomTime;
         cameraData.InitialiseCamera(cameraObject.transform.position, 10.0f);
-        cameraData.InitialiseZoom(ZoomDirection.ZoomOut, 5.0f,2.0f);
+        cameraData.InitialiseZoom(ZoomDirection.ZoomOut,10.0f, 5.0f,2.0f);
 
         float initialZoom = cameraData.GetPosition().z;
         float time = cameraData.GetTimeForZoom();
@@ -79,7 +79,7 @@ public class Zoom
     {
         cam.m_state = Feature.ZoomTime;
         cameraData.InitialiseCamera(cameraObject.transform.position, 10.0f);
-        cameraData.InitialiseZoom(ZoomDirection.ZoomIn, 5.0f, 2.0f);
+        cameraData.InitialiseZoom(ZoomDirection.ZoomIn, 10.0f, 5.0f, 2.0f);
 
         float initialZoom = cameraData.GetPosition().z;
         float time = cameraData.GetTimeForZoom();

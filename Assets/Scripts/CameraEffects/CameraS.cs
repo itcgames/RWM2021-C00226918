@@ -8,7 +8,8 @@ public enum Feature
     Move, 
     Track,
     ZoomAmount,
-    ZoomTime
+    ZoomTime,
+    ZoomPosition
 }
 
 public class CameraS : MonoBehaviour
@@ -23,8 +24,7 @@ public class CameraS : MonoBehaviour
 
     void Start()
     {
-        m_state = Feature.ZoomTime;
-        trackPos = new Vector3(14.0f, 10.0f, 0.0f);
+        m_state = Feature.ZoomPosition;
         m_cameraData = GetComponent<CameraData>();
 
         m_cameraData.InitialiseCamera(transform.position, 10.0f);
@@ -36,9 +36,9 @@ public class CameraS : MonoBehaviour
         {
             m_cameraData.InitialiseTracking(TrackingType.Follow, new Vector3(2.0f, 0.0f));
         }
-        else if (m_state == Feature.ZoomAmount || m_state == Feature.ZoomTime)
+        else if (m_state == Feature.ZoomAmount || m_state == Feature.ZoomTime || m_state == Feature.ZoomPosition)
         {
-            m_cameraData.InitialiseZoom(ZoomDirection.ZoomOut, 5.0f,10.0f);
+            m_cameraData.InitialiseZoom(ZoomDirection.ZoomIn, 10.0f, 1.0f, 10.0f, CameraMovementState.Steering);
         }
     }
 
@@ -48,7 +48,7 @@ public class CameraS : MonoBehaviour
         switch(m_state)
 		{
             case Feature.Move:
-                ProgressiveMovement.Move(ref m_cameraData, new Vector3(14.0f, 10.0f, 0.0f));
+                ProgressiveMovement.Move(ref m_cameraData, trackPos);
                 break;
             case Feature.Track:
             {
@@ -63,6 +63,9 @@ public class CameraS : MonoBehaviour
                 break;
             case Feature.ZoomTime:
                 Zooming.ZoomInOutTime(ref m_cameraData);
+                break;
+            case Feature.ZoomPosition:
+                Zooming.ZoomInOutPosition(ref m_cameraData, trackPos);
                 break;
             default:
                 break;

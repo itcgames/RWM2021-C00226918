@@ -7,7 +7,7 @@ public class Globals
 	public const float PI = 3.141592653589f;
 
     public static float MAX_ARRIVE_RADIUS = 0.1f;
-    public static float MAX_SLOW_RADIUS = 1.2f;
+    public static float MAX_SLOW_RADIUS = 0.6f;
     public static float MAX_SPEED_RANGE = 0.08f;
     public static float MAX_SPEED = 10.0f;
     public static float MAX_ACCELERATION = 0.5f;

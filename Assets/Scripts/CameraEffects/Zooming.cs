@@ -36,9 +36,9 @@ public class Zooming
 			{
 				if (t_data.GetTimeForZoom() != 0)
 				{
-					t_data.SetCurrentSpeed(t_data.GetZoomAmount() / t_data.GetTimeForZoom());
+					t_data.SetCurrentZoomSpeed(t_data.GetZoomAmount() / t_data.GetTimeForZoom());
 				}
-				t_data.SetVelocity(new Vector3(t_data.GetVelocity().x, t_data.GetVelocity().y, t_data.GetCurrentSpeed()));
+				t_data.SetVelocity(new Vector3(t_data.GetVelocity().x, t_data.GetVelocity().y, t_data.GetCurrentZoomSpeed()));
 				ZoomMovement(ref t_data);
 			}
 		}
@@ -48,12 +48,24 @@ public class Zooming
 			{
 				if (t_data.GetTimeForZoom() != 0)
 				{
-					t_data.SetCurrentSpeed(t_data.GetZoomAmount() / t_data.GetTimeForZoom());
+					t_data.SetCurrentZoomSpeed(t_data.GetZoomAmount() / t_data.GetTimeForZoom());
 				}
-				t_data.SetVelocity(new Vector3(t_data.GetVelocity().x, t_data.GetVelocity().y, -t_data.GetCurrentSpeed()));
+				t_data.SetVelocity(new Vector3(t_data.GetVelocity().x, t_data.GetVelocity().y, -t_data.GetCurrentZoomSpeed()));
 				ZoomMovement(ref t_data);
 			}
 		}
+	}
+
+	public static void ZoomInOutPosition(ref CameraData t_data, Vector3 t_position)
+	{
+		float distance = Globals.Magnitude(t_data.GetPosition() - t_position);
+		float time = distance / t_data.GetInitialSpeed();
+
+		t_data.SetTimeForZoom(time);
+
+		ZoomInOutTime(ref t_data);
+
+		ProgressiveMovement.Move(ref t_data, t_position);
 	}
 
 	private static void ZoomMovement(ref CameraData t_data)

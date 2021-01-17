@@ -26,6 +26,7 @@ public enum ZoomDirection
 public class CameraData : MonoBehaviour
 {
     private Vector3 m_position;
+    private Vector3 m_initialPosition;
     private Vector3 m_velocity;
     private Vector3 m_linearSteering;
     private float m_currentSpeed;
@@ -38,10 +39,12 @@ public class CameraData : MonoBehaviour
     private float m_initialZoom;
     private float m_timeForZoom;
     private float m_zoomAmount;
+    private float m_currentZoomSpeed;
 
     public void InitialiseCamera(Vector3 t_position, float t_speed, float t_orientation = 0.0f)
     {
         SetPosition(t_position);
+        SetInitialPosition(t_position);
         SetCurrentSpeed(t_speed);
         SetOrientation(t_orientation);
         SetVelocity(new Vector3(0.0f, 0.0f));
@@ -60,10 +63,11 @@ public class CameraData : MonoBehaviour
         SetTrackingType(t_type);
         SetTrackingOffset(t_offset);
         SetPosition(GetPosition() + t_offset);
+        SetInitialPosition(GetPosition() + t_offset);
         SetCameraState(CameraMovementState.None);
     }
 
-    public void InitialiseZoom(ZoomDirection t_direction, float t_zoomAmount = 0.0f, float t_timeToZoom = 0.0f)
+    public void InitialiseZoom(ZoomDirection t_direction, float t_zoomSpeed, float t_zoomAmount = 0.0f, float t_timeToZoom = 0.0f, CameraMovementState t_state = CameraMovementState.None)
     {
         SetZoomDirection(t_direction);
         SetInitialZoom(GetPosition().z);
@@ -71,10 +75,17 @@ public class CameraData : MonoBehaviour
         SetCameraState(CameraMovementState.None);
         SetTimeForZoom(t_timeToZoom);
         SetZoomAmount(t_zoomAmount);
+        SetCurrentZoomSpeed(t_zoomSpeed);
+
+        if(t_state != CameraMovementState.None)
+		{
+            InitialiseMovement(t_state);
+		}
     }
 
     //getters
     public Vector3 GetPosition() { return m_position; }
+    public Vector3 GetInitialPosition() { return m_initialPosition; }
     public Vector3 GetVelocity() { return m_velocity; }
     public float GetCurrentSpeed() { return m_currentSpeed; }
     public float GetOrientation() { return m_orientation; }
@@ -87,10 +98,13 @@ public class CameraData : MonoBehaviour
     public float GetInitialZoom() { return m_initialZoom; }
     public float GetTimeForZoom() { return m_timeForZoom; }
     public float GetZoomAmount() { return m_zoomAmount; }
+    public float GetCurrentZoomSpeed() { return m_currentZoomSpeed; }
 
     //setters
     public void SetPosition(Vector3 t_position) { m_position = t_position; }
+    public void SetInitialPosition(Vector3 t_position) { m_initialPosition = t_position; }
     public void SetVelocity(Vector3 t_velocity) { m_velocity = t_velocity; }
+    public void SetVelocity2(Vector2 t_velocity) { m_velocity = t_velocity; }
     public void SetCurrentSpeed(float t_currentSpeed) { m_currentSpeed = t_currentSpeed; }
     public void SetOrientation(float t_orientation) { m_orientation = t_orientation; }
     public void SetLinearSteering(Vector3 t_linearSteer) { m_linearSteering = t_linearSteer; }
@@ -102,4 +116,5 @@ public class CameraData : MonoBehaviour
     public void SetInitialZoom(float t_initialZoom) { m_initialZoom = t_initialZoom; }
     public void SetTimeForZoom(float t_timeForZoom) { m_timeForZoom = t_timeForZoom; }
     public void SetZoomAmount(float t_zoomAmount) { m_zoomAmount = t_zoomAmount; }
+    public void SetCurrentZoomSpeed(float t_zoomSpeed) { m_currentZoomSpeed = t_zoomSpeed; }
 }

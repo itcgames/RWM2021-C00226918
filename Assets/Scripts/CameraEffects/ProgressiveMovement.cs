@@ -30,10 +30,10 @@ public class ProgressiveMovement
                 orientationVector = Globals.CreateVector(-Mathf.Sin(t_data.GetOrientation()), Mathf.Cos(t_data.GetOrientation()));
             }
 
-            t_data.SetVelocity(t_data.GetCurrentSpeed() * (orientationVector * Globals.VELOCITY_SLOW));
+            t_data.SetVelocity2(t_data.GetCurrentSpeed() * (orientationVector));
 
             t_data.SetOrientation(Globals.GetNewOrientation(t_data.GetOrientation(), t_target - t_data.GetPosition()));
-            t_data.SetPosition(t_data.GetPosition() + t_data.GetVelocity());
+            t_data.SetPosition(t_data.GetPosition() + (t_data.GetVelocity() * Time.deltaTime));
         }
 	}
 
@@ -47,12 +47,12 @@ public class ProgressiveMovement
             t_data.SetCurrentSpeed(0.0f);
             return true;
         }
-        //slow down when within slow down radius
-        else if (l_distance >= Globals.MAX_ARRIVE_RADIUS && l_distance < Globals.MAX_SLOW_RADIUS)
-        {
-            t_data.SetCurrentSpeed(t_data.GetInitialSpeed() * (l_distance / Globals.MAX_SLOW_RADIUS));
-        }
-        return false;
+		//slow down when within slow down radius
+		else if (l_distance >= Globals.MAX_ARRIVE_RADIUS && l_distance < Globals.MAX_SLOW_RADIUS)
+		{
+			t_data.SetCurrentSpeed(t_data.GetInitialSpeed() * (l_distance / Globals.MAX_SLOW_RADIUS));
+		}
+		return false;
     }
 
     public static void SteeringMovement(ref CameraData t_data, Vector3 t_target)
