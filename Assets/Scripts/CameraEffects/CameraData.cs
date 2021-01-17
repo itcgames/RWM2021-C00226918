@@ -23,7 +23,6 @@ public enum ZoomDirection
 	ZoomOut
 }
 
-
 public class CameraData : MonoBehaviour
 {
     private Vector3 m_position;
@@ -37,6 +36,8 @@ public class CameraData : MonoBehaviour
     private Vector3 m_trackingOffset;
     private ZoomDirection m_zoomDirection = ZoomDirection.None;
     private float m_initialZoom;
+    private float m_timeForZoom;
+    private float m_zoomAmount;
 
     public void InitialiseCamera(Vector3 t_position, float t_speed, float t_orientation = 0.0f)
     {
@@ -62,12 +63,14 @@ public class CameraData : MonoBehaviour
         SetCameraState(CameraMovementState.None);
     }
 
-    public void InitialiseZoom(ZoomDirection t_direction)
+    public void InitialiseZoom(ZoomDirection t_direction, float t_zoomAmount = 0.0f, float t_timeToZoom = 0.0f)
     {
         SetZoomDirection(t_direction);
         SetInitialZoom(GetPosition().z);
         SetTrackingType(TrackingType.None);
         SetCameraState(CameraMovementState.None);
+        SetTimeForZoom(t_timeToZoom);
+        SetZoomAmount(t_zoomAmount);
     }
 
     //getters
@@ -82,6 +85,8 @@ public class CameraData : MonoBehaviour
     public float GetInitialSpeed() { return m_initialSpeed; }
     public ZoomDirection GetZoomDirection() { return m_zoomDirection; }
     public float GetInitialZoom() { return m_initialZoom; }
+    public float GetTimeForZoom() { return m_timeForZoom; }
+    public float GetZoomAmount() { return m_zoomAmount; }
 
     //setters
     public void SetPosition(Vector3 t_position) { m_position = t_position; }
@@ -95,4 +100,6 @@ public class CameraData : MonoBehaviour
     public void SetInitialSpeed(float t_initialSpeed) { m_initialSpeed = t_initialSpeed; }
     public void SetZoomDirection(ZoomDirection t_zoomDirection) { m_zoomDirection = t_zoomDirection; }
     public void SetInitialZoom(float t_initialZoom) { m_initialZoom = t_initialZoom; }
+    public void SetTimeForZoom(float t_timeForZoom) { m_timeForZoom = t_timeForZoom; }
+    public void SetZoomAmount(float t_zoomAmount) { m_zoomAmount = t_zoomAmount; }
 }

@@ -38,12 +38,12 @@ public class CameraS : MonoBehaviour
         }
         else if (m_state == Feature.ZoomAmount || m_state == Feature.ZoomTime)
         {
-            m_cameraData.InitialiseZoom(ZoomDirection.ZoomOut);
+            m_cameraData.InitialiseZoom(ZoomDirection.ZoomOut, 5.0f,10.0f);
         }
     }
 
-    // Update is called once per frame
-    void LateUpdate()
+	// Update is called once per frame
+	void LateUpdate()
     {
         switch(m_state)
 		{
@@ -59,10 +59,10 @@ public class CameraS : MonoBehaviour
                 break;
             }
             case Feature.ZoomAmount:
-                Zooming.ZoomInOutAmount(ref m_cameraData, 10.0f);
+                Zooming.ZoomInOutAmount(ref m_cameraData);
                 break;
             case Feature.ZoomTime:
-                Zooming.ZoomInOutTime(ref m_cameraData, 5.0f, 10.0f);
+                Zooming.ZoomInOutTime(ref m_cameraData);
                 break;
             default:
                 break;
